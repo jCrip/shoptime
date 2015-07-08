@@ -7,7 +7,6 @@ set :repo_url, 'git@example.com:me/my_repo.git'
 set :branch, 'master'
 set :deploy_via, :copy
 set :user, 'ubuntu'
-set :rails_env, 'production'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/home/ubuntu/shoptime'

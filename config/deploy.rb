@@ -12,7 +12,7 @@ set :user, 'ubuntu'
 set :deploy_to, '/home/ubuntu/shoptime'
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml .env}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}

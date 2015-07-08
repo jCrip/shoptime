@@ -9,7 +9,7 @@ set :deploy_via, :copy
 set :user, 'ubuntu'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/ubuntu/apps/shoptime'
+set :deploy_to, '/home/ubuntu/shoptime'
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/secrets.yml}
@@ -18,15 +18,27 @@ set :linked_files, %w{config/database.yml config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 namespace :deploy do
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
+  after :publishing, 'deploy:restart'
+  after :finishing, 'deploy:cleanup'
 end
 
+namespace :tasks do
+  desc 'Rake assets:clean'
+  task :clean do
+    on roles(:app) do
+      within "#{current_path}" do
+        with rails_env: :production do
+          execute :rake, 'assets:clean'
+          execute :touch, release_path.join('tmp/restart.txt')
+        end
+      end
+    end
+  end
+end

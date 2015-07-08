@@ -3,7 +3,7 @@ lock '3.4.0'
 
 set :application, 'shoptime'
 set :scm, :git
-set :repo_url, 'git@example.com:me/my_repo.git'
+set :repo_url, 'git@github.com:jCrip/shoptime.git'
 set :branch, 'master'
 set :deploy_via, :copy
 set :user, 'ubuntu'

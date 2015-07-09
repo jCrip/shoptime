@@ -1,6 +1,21 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
+  def pay
+    @product = Product.find(params[:id])
+    @payment = Payment.create
+
+    @payment.order_id = @payment.id.to_s + SecureRandom.random_number(10).to_s
+    @payment.session_id = SecureRandom.random_number(10).to_s
+    @payment.amount = @product.price
+    @payment.save
+
+    @tbk_tipo_transaccion = "TR_NORMAL"
+    @tbk_url_cgi = "http://186.64.122.15/cgi-bin/testing-webpay/tbk_bp_pago.cgi"
+    @tbk_url_exito = "http://elsupersubdominio.beerly.cl/payment/success"
+    @tbk_url_fracaso = "http://elsupersubdominio.beerly.cl/payment/failure"
+  end
+
   # GET /products
   # GET /products.json
   def index

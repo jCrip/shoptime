@@ -1,0 +1,49 @@
+!!!
+%html
+    %head
+        %title
+    %body
+
+:javascript
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = '#{@tbk_url_cgi}';
+
+    var element1 = document.createElement("input");
+    element1.value = '#{@tbk_tipo_transaccion}';
+    element1.name = "TBK_TIPO_TRANSACCION";
+    element1.type = "hidden";
+    form.appendChild(element1);
+
+    var element2 = document.createElement("input");
+    element2.value = '#{@payment.amount.to_s + "00"}';
+    element2.name = "TBK_MONTO";
+    element2.type = "hidden";
+    form.appendChild(element2);
+
+    var element3 = document.createElement("input");
+    element3.value = '#{@payment.order_id}';
+    element3.name = "TBK_ORDEN_COMPRA";
+    element3.type = "hidden";
+    form.appendChild(element3);
+
+    var element4 = document.createElement("input");
+    element4.value = '#{@payment.session_id}';
+    element4.name = "TBK_ID_SESION";
+    element4.type = "hidden";
+    form.appendChild(element4);
+
+    var element5 = document.createElement("input");
+    element5.value = '#{@tbk_url_exito}';
+    element5.name = "TBK_URL_EXITO";
+    element5.type = "hidden";
+    form.appendChild(element5);
+
+    var element6 = document.createElement("input");
+    element6.value = '#{@tbk_url_fracaso}';
+    element6.name = "TBK_URL_FRACASO";
+    element6.type = "hidden";
+    form.appendChild(element6);
+
+    document.body.appendChild(form);
+    form.submit();

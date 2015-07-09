@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'products/pay'
+  post 'products/confirmation'
   root 'products#index'
   resources :products
-  get 'products/pay'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

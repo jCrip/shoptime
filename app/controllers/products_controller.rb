@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:confirmation]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def pay
@@ -19,10 +20,6 @@ class ProductsController < ApplicationController
   def confirmation
     logger.info 'Hola me estoy llamando'
     render text: 'ACEPTADO'
-  end
-
-  def failure
-    logger.info 'Hola soy un error'
   end
 
   # GET /products
